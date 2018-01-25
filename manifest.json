@@ -1,0 +1,35 @@
+{
+  "manifest_version": 2,
+  "name": "QuickEmoji",
+  "version": "0.0.0.3",
+  "description": "QuickEmoji gives you a fast way to add emojis to your tweets while writing a tweet. Just use `:EMOJI`.",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  // "background": {
+  //   "scripts": [
+  //     "background.js"
+  //   ]
+  // },
+  "permissions": [
+    "*://twitter.com/*",
+    "tabs",
+    "webNavigation"
+  ],
+  "content_scripts": [
+    {
+      "css": [
+        "style.css"
+      ],
+      "js": [
+        "/node_modules/jquery/dist/jquery.min.js",
+        "contentscript.js"
+      ],
+      "matches": [
+        "*://twitter.com/*"
+      ]
+    }
+  ]
+}
