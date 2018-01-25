@@ -1,18 +1,13 @@
 {
   "manifest_version": 2,
   "name": "emojinline",
-  "version": "0.0.0.3",
+  "version": "0.0.0.4",
   "description": "emojinline gives you a fast way to add emojis to your tweets while writing a tweet. Just use `:EMOJI:`.",
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
     "128": "icon128.png"
   },
-  // "background": {
-  //   "scripts": [
-  //     "background.js"
-  //   ]
-  // },
   "permissions": [
     "*://twitter.com/*",
     "tabs",

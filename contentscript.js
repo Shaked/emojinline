@@ -122,6 +122,7 @@ console.log('loaded jquery');
 			var matches = text.match(emojiRe);
 			var newText = text;
 			var emojiTemplateHtml = '<span class="RichEditor-pictographText" title="{ title }" aria-label="Emoji: { title }" data-pictograph-text="{ pictographText }" data-pictograph-image="{ pictographImage }"> </span>';
+			var changed = false;
 			if (matches && matches.length > 0) {
 				for (var i in matches) {
 					var emoji = matches[i].replace(/:/g,'');
@@ -130,83 +131,19 @@ console.log('loaded jquery');
 						console.log("replacing: ", matches[i], "with: ",possibleEmojis[0]);
 
 						newText = newText.replace(matches[i], possibleEmojis[0]);
+						changed = true;
 					}
 				}
 
-				$(this).html(newText);
-				placeCaretAtEnd(this);
+				if (changed) {
+					$(this).html(newText);
+					placeCaretAtEnd(this);
+				}
 			}
 			console.log('newText',newText);
 			before = text;
 			return;
-			var text = e.currentTarget.innerText;
-			var semiColonCountBefore = (before.match(/\:/g) || []).length;
-			var semiColonCountNew = (text.match(/\:/g) || []).length;
-		  	console.log('before',before);
-			console.log('change',e.currentTarget.innerText)
-			console.log('semiColonCountBefore',semiColonCountBefore);
-			console.log('semiColonCountNew',semiColonCountNew);
-
-			var diff = text.replace(new RegExp(before, "gm"), "");
-			console.log('diff is', diff);
-			console.log('keycode', keyCode);
-
-			switch(keyCode) {
-				case 186:
-					//semicolon ':'
-					if (status.semicolon) {
-						status.endsWithSemicolon = true;
-					}
-					status.semicolon = true;
-				break;
-				case 32:
-					//space
-					status.endsWithSemicolon = false;
-					status.semicolon = false;
-					status.word = '';
-				break;
-				case 8:
-					status.word = status.word.substr(0, -1);
-					status.endsWithSemicolon = false;
-				break;
-				default:
-					status.endsWithSemicolon = false;
-					status.word += String.fromCharCode(keyCode);
-				break;
-			}
-
-			console.log('status.word', status.word);
-			if (status.semicolon && $.trim(status.word)) {
-				var emojiName = $.trim(status.word.toLowerCase());
-				console.log('emojiName', emojiName);
-				var possibleEmojis = findEmojis(emojis, emojiName);
-
-				$('.testingDiv').html(possibleEmojis.join('|'));
-				if (status.endsWithSemicolon) {
-					var diff = e.currentTarget.innerHTML.replace(new RegExp(':'+status.word.toLowerCase()+':', "igm"), possibleEmojis[0]);
-					var newText = diff;
-					$(this).html(newText);
-				}
-			}
-
-			before = text;
-			return;
-			if (semiColonCountNew == semiColonCountBefore) {
-				var list = text.split(':');
-				emojiName = $.trim(list[list.length-1]);
-				console.log('emojiName', emojiName, emojis);
-				var possibleEmojis = findEmojis(emojis, emojiName);
-				console.log('possibleEmojis',possibleEmojis);
-				$('.testingDiv').html(possibleEmojis.join('|'));
-				// $('.EmojiPicker-trigger.js-dropdown-toggle').click();
-				// $('.EmojiPicker.dropdown').addClass('open');
-			} else {
-				emojiName = '';
-				$('.testingDiv').html('');
-				// $('.EmojiPicker.dropdown').removeClass('open');
-			}
-			before = text;
-		});
+			});
 
 	});
 
