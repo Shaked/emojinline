@@ -56,7 +56,7 @@ function findEmojis(emojis, emojiName) {
 }
 
 console.log('QUICKMOJI LOADED');
-loadScript("https://code.jquery.com/jquery-3.3.1.min.js", function(e) {
+// loadScript("https://code.jquery.com/jquery-3.3.1.min.js", function(e) {
 	loadScript("https://cdnjs.cloudflare.com/ajax/libs/jquery-typeahead/2.10.4/jquery.typeahead.min.js");
 console.log('loaded jquery');
 	var before;
@@ -83,9 +83,10 @@ console.log('loaded jquery');
 	    jQuery('#tweet-box-home-timeline, .tweet-box.rich-editor').on('focus', function() {
 		  before = jQuery(this).text();
 		}).on('blur keyup paste', function(e) {
-		  if (before != jQuery(this).text()) {
+		  // if (before != jQuery(this).text()) {
+			console.log('paste', before, jQuery(this).text());
 		  	jQuery(this).trigger('change', [e.keyCode]);
-		  }
+		  // }
 		});
 
 		var status = {
@@ -209,4 +210,4 @@ console.log('loaded jquery');
 
 	});
 
-});
+// });
