@@ -21,7 +21,6 @@
   "content_scripts": [
     {
       "js": [
-        "/node_modules/jquery/dist/jquery.min.js",
         "contentscript.js"
       ],
       "matches": [
